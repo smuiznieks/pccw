@@ -14,9 +14,9 @@ const Hello = props => {
 
 // TODO: Create Instructor Component
 // Check out React Developer Tools
-const Instructor = props => {
-  let [name, setName] = React.useState('Selga');
-  let [day, setDay] = React.useState('W');
+const Instructor = () => {
+  const [name, setName] = React.useState('Selga');
+  const [day, setDay] = React.useState('W');
 
   // What does useEffect do? 
   // By using this Hook, you tell React that your component needs to do something after render. 
@@ -34,11 +34,14 @@ const Instructor = props => {
   }, [name, day]);
 
   function changeInstructor() {
-    if (name === 'Selga') {
-      setName('April');
-    } else {
-      setName('Selga');
-    }
+    // This can be refactored
+    // if (name === 'Selga') {
+    //   setName('April');
+    // } else {
+    //   setName('Selga');
+    // }
+    let newName = name === 'Selga' ? 'April' : 'Selga';
+    setName(newName);
   };
 
   function changeDay() {
