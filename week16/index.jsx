@@ -63,7 +63,7 @@ const Instructor = () => {
 // TODO: Create OldClass component
 // Check out React Developer Tools
 class OldHello extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
       name: 'Selga'
