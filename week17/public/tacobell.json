@@ -1,0 +1,148 @@
+{
+  "locations" : [
+    {
+      "name": "Taco Bell Louisville",
+      "street": "1441 Gardiner Lane",
+      "city": "Louisville",
+      "state": "KY",
+      "Zip Code": "40213",
+      "phone": "502-874-2725",
+      "latitude": 38.19806832,
+      "longitude": -85.69570392,
+      "address": "1441 Gardiner Lane, Louisville, KY, 40213",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    },
+    {
+      "name": "Taco Bell Prescott",
+      "street": "1806 Us Highway 371 W",
+      "city": "Prescott",
+      "state": "AR",
+      "Zip Code": "71857",
+      "phone": "870-887-8900",
+      "latitude": 33.81140131,
+      "longitude": -93.42704289,
+      "address": "1806 Us Highway 371 W, Prescott, AR, 71857",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    },
+    {
+      "name": "Taco Bell Minot Afb",
+      "street": "362 Missile Ave Bldg 248",
+      "city": "Minot Afb",
+      "state": "ND",
+      "Zip Code": "58705",
+      "phone": "701-727-4706",
+      "latitude": 48.42413579,
+      "longitude": -101.33776113,
+      "address": "362 Missile Ave Bldg 248, Minot Afb, ND, 58705",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    },
+    {
+      "name": "Taco Bell Dry Ridge",
+      "street": "71 Broadway Street",
+      "city": "Dry Ridge",
+      "state": "KY",
+      "Zip Code": "41035",
+      "phone": "859-824-7604",
+      "latitude": 38.6817459,
+      "longitude": -84.5989169,
+      "address": "71 Broadway Street, Dry Ridge, KY, 41035",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    },
+    {
+      "name": "Taco Bell Erlanger",
+      "street": "3098 S Dixie Hwy",
+      "city": "Erlanger",
+      "state": "KY",
+      "Zip Code": "41018",
+      "phone": "859-331-4265",
+      "latitude": 39.0215365,
+      "longitude": -84.5889215,
+      "address": "3098 S Dixie Hwy, Erlanger, KY, 41018",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    },
+    {
+      "name": "Taco Bell Louisville",
+      "street": "One Arena Plaza",
+      "city": "Louisville",
+      "state": "KY",
+      "Zip Code": "40203",
+      "phone": "502-690-9072",
+      "latitude": 38.25784817,
+      "longitude": -85.75391109,
+      "address": "One Arena Plaza, Louisville, KY, 40203",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    },
+    {
+      "name": "Taco Bell Louisville",
+      "street": "One Arena Plaza",
+      "city": "Louisville",
+      "state": "KY",
+      "Zip Code": "40202",
+      "phone": "502-690-9072",
+      "latitude": 38.25808889,
+      "longitude": -85.75379407,
+      "address": "One Arena Plaza, Louisville, KY, 40202",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    },
+    {
+      "name": "Taco Bell Hammond",
+      "street": "303 W Texas Avenue",
+      "city": "Hammond",
+      "state": "LA",
+      "Zip Code": "70402",
+      "phone": "985-549-2075",
+      "latitude": 30.51404183,
+      "longitude": -90.46764746,
+      "address": "303 W Texas Avenue, Hammond, LA, 70402",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    },
+    {
+      "name": "Taco Bell New Orleans",
+      "street": "4603 Chef Menteur Hwy",
+      "city": "New Orleans",
+      "state": "LA",
+      "Zip Code": "70126",
+      "phone": "504-283-9006",
+      "latitude": 30.00617815,
+      "longitude": -90.03547416,
+      "address": "4603 Chef Menteur Hwy, New Orleans, LA, 70126",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    },
+    {
+      "name": "Taco Bell La Belle",
+      "street": "50 North Lee Street",
+      "city": "Labelle",
+      "state": "FL",
+      "Zip Code": "33935",
+      "phone": "863-675-3400",
+      "latitude": 26.76223746,
+      "longitude": -81.43645683,
+      "address": "50 North Lee Street, Labelle, FL, 33935",
+      "country": "USA",
+      "Last Updated Date": "2021-09-26"
+    }
+  ],
+  "menu" : [
+    {
+      "name": "Crunchy Taco",
+      "price": 1.19
+    },
+    {
+      "name": "Bean Burrito",
+      "price": 1.29
+    }, 
+    {
+      "name": "Crunchwrap Supreme",
+      "price": 2.99
+    }
+  ]
+}
