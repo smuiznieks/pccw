@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
-import MenuItem from './MenuItem';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
+import GridExample from './GridExample';
+import MenuItem from './MenuItem';
+import Navi from './Navi';
 import Restaurant from './Restaurant';
 
 function App() {
@@ -16,19 +23,33 @@ function App() {
   }, [data]);
 
   return (
-    <div className='container'>
-      <h1>Locations</h1>
-      {data && data.locations.map((location, i) => {
-        return <Restaurant info={location} key={i} />
-      })}
-    
-      <h1>Menu</h1>
-      <ul className='list-group' style={{ width: '20rem' }}>
-        {data && data.menu.map((item, i) => {
-          return <MenuItem menuItem={item} key={i} />
-        })}
-      </ul>
-    </div>
+    <Router>
+      <Navi />
+      <div className='container'>
+        <Switch>
+          <Route path="/locations">
+            <h1>Locations</h1>
+            {data && data.locations.map((location, i) => {
+              return <Restaurant info={location} key={i} />
+            })}
+          </Route>
+          <Route path="/menu">
+            <h1>Menu</h1>
+            <ul className='list-group' style={{ width: '20rem' }}>
+              {data && data.menu.map((item, i) => {
+                return <MenuItem menuItem={item} key={i} />
+              })}
+            </ul>
+          </Route>
+          <Route path="/grid">
+            <GridExample />
+          </Route>
+          <Route path="/">
+            <h1>It's taco time!!</h1>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

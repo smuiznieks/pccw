@@ -5,7 +5,7 @@ const Restaurant = ({info}) => (
     <div className='card-body'>
       <h5 className='card-title'>{info.name}</h5>
       <p className='card-text'>{info.address}</p>
-      <a href='#' className='btn btn-primary'>Set as 'Favorite'</a>
+      <button className='btn btn-primary'>Set as 'Favorite'</button>
     </div>
   </div>
 )

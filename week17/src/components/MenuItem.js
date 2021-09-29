@@ -1,5 +1,5 @@
 const MenuItem = ({menuItem}) => (
-  <li class='list-group-item'>{menuItem.name} (${menuItem.price})</li>
+  <li className='list-group-item'>{menuItem.name} (${menuItem.price})</li>
 )
 
 export default MenuItem;
