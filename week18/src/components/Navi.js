@@ -6,9 +6,15 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-const Navi = () => {
+import { useAuth } from "./ProvideAuth";
+
+function Navi() {
+  let history = useHistory();
+  // console.log(history);
+  let auth = useAuth();
+  // console.log(auth);
 
   return (
     <Navbar color="light" light expand="md">
@@ -19,6 +25,15 @@ const Navi = () => {
           </NavItem>
           <NavItem>
             <NavLink tag={Link} to="/menu">Menu</NavLink>
+          </NavItem>
+          <NavItem>
+           { auth.user ? 
+            <NavLink onClick={() => {
+              auth.signout(() => history.push('/'));
+            }}>Log Out</NavLink>
+            :
+            <NavLink tag={Link} to="/login">Log In</NavLink> 
+           }
           </NavItem>
         </Nav>
     </Navbar>
