@@ -32,12 +32,18 @@ function Navi() {
               auth.signout(() => history.push('/'));
             }}>Log Out</NavLink>
             :
-            <NavLink tag={Link} to="/login">Log In</NavLink> 
+            <NavLink tag={Link} to="/login">Take me to the sign in page</NavLink> 
            }
           </NavItem>
         </Nav>
     </Navbar>
   );
 }
+
+// UPDATE: Log In button was working as expected during office hours
+// When you click on the Log In button it links to the /login route where you have to click the "Log In" button
+// Not a good user experience!
+// It might be better to refactor line 35 to use auth.signin() function and then reroute
+// Try updating this on your own!!
 
 export default Navi;
