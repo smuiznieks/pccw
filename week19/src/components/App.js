@@ -23,7 +23,20 @@ function App() {
       setData(json);
     }
     getRestaurants();
-  }, [data]);
+    getDogs();
+  }, []);
+
+  function getDogs() {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch("https://dog.ceo/api/breeds/list/all", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
 
   return (
     <ProvideAuth>
