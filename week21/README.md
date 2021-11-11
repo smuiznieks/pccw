@@ -33,35 +33,35 @@ await db.read()
 ```
 // If file.json doesn't exist, db.data will be null
 // Set default data
-db.data ||= { posts: [] }
+db.data ||= { users: [] }
 ```
 WARNING! `||=` was added in Node.js 15.0.0
 You can check your node version by executing `node -v`
 What would you do if you were on an older version of node?
 Switch this to do this another way! 
 ```
-if (!db.data) db.data = { posts: [] };
+if (!db.data) db.data = { users: [] };
 console.log(db.data);
 ```
 19. Restart server
-20. Update the default route to READ (CRUD): `response.json(db.data.posts);`
+20. Update the default route to READ (CRUD): `response.json(db.data.users);`
 21. Restart server
 22. Add a route to CREATE (CRUD): 
 WARNING! We wouldn't normally be using app.get for CREATE, UPDATE or DELETE
 ```
 app.get('/create', (req, res) => {
-  db.data.posts.push({id: 1, name: 'Selga', content: 'wow here we go!'});
+  db.data.users.push({id: 1, name: 'Selga', state: 'OH'});
   db.write();
   res.send('added!');
 });
 ```
 23. Add uuid by running `npm install uuid` and importing `import { v4 as uuidv4 } from 'uuid';`
-24. Update id in create request: `db.data.posts.push({id: uuidv4(), name: 'Selga', content: 'wow here we go!'});`
+24. Update id in create request: `db.data.users.push({id: uuidv4(), name: 'Selga', state: 'OH'});`
 25. Restart server, demo, start server, get
 26. Add a route to DELETE (CRUD):
 ```
 app.get('/delete/:id', (req, res) => {
-  db.data.posts = db.data.posts.filter((post) => post.id !== req.params.id);
+  db.data.users = db.data.users.filter((post) => post.id !== req.params.id);
   db.write();
   res.json(`Deleted id: ${req.params.id}`);
 });
@@ -69,8 +69,8 @@ app.get('/delete/:id', (req, res) => {
 27. Restart server, demo
 28. Add a route to UPDATE (CRUD):
 ```
-app.get('/update/:id/:name', (req, res) => {
-  db.data.posts.find((post) => post.id === req.params.id).name = req.params.name;
+app.get('/update/:id/:state', (req, res) => {
+  db.data.users.find((post) => post.id === req.params.id).state = req.params.state;
   db.write();
   res.json(`Updated id: ${req.params.id}`);
 });
