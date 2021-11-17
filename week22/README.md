@@ -1,78 +1,60 @@
-# Week 21
+# Week 22
 
-Make sure to npm init and npm install any dependencies before starting!
+Make sure to npm install before starting!
 
-1. I cleaned up the comments from the week19 backend project but everything else is the same!
-2. Lowdb documentation: https://www.npmjs.com/package/lowdb 
-3. Copy the following import: `import { Low, JSONFile } from 'lowdb'`
-4. Restart server
-5. If you're having trouble importing it in your project please read this: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
-6. Update package.json with this line before the closing curly brace: `"type": "module"`
-7. Restart server
-8. Update express import: `import express from 'express';`
-9. Create db.json file
-10. Copy and paste the following from the documentation:
+1. Started by copying all of last week's content over to this week's folder
+2. Middleware demo - create a function with parameters req, res and next:
 ```
-// Use JSON file for storage
-const file = join(__dirname, 'db.json')
-const adapter = new JSONFile(file)
-const db = new Low(adapter)
+// have access to req and res objects!
+function selgaMiddleware(req, res, next) {
+  console.log("MIDDLEWARE!");
+  // next is required by express (instead of a return)
+  next();
+}
 ```
-11. Restart server
-12. What is __dirname? This is an example of using the file system! Referencing a file in our folder. 
-13. Resolve issues by adding this import: `import path from 'path'`
-14. Update the following line 6: `const file = path.join(path.resolve(), 'db.json')`
-15. `console.log(path.resolve());` to see what is happening here 
-16. Continue to follow the documentation: 
+3. Add selgaMiddleware to get request: `app.get('/', selgaMiddleware, (req, res) => {`
+4. What happens if we don't use `next()`?
+5. Another middleware example:
 ```
-// Read data from JSON file, this will set db.data content
-await db.read()
+function another(req, res, next) {
+  console.log("ANOTHER ONE!")
+  next();
+}
 ```
-17. Update db.json to JSON
-18. Continue to following the documentation: 
+6. Add another to get request: `app.get('/', selgaMiddleware, another, (req, res) => {`
+7. Add middleware to all routes: `app.use(selgaMiddleware);`
+8. Update routes to standard uses (GET is already good, test in Postman)
+9. CREATE:
 ```
-// If file.json doesn't exist, db.data will be null
-// Set default data
-db.data ||= { users: [] }
-```
-WARNING! `||=` was added in Node.js 15.0.0
-You can check your node version by executing `node -v`
-What would you do if you were on an older version of node?
-Switch this to do this another way! 
-```
-if (!db.data) db.data = { users: [] };
-console.log(db.data);
-```
-19. Restart server
-20. Update the default route to READ (CRUD): `response.json(db.data.users);`
-21. Restart server
-22. Add a route to CREATE (CRUD): 
-WARNING! We wouldn't normally be using app.get for CREATE, UPDATE or DELETE
-```
-app.get('/create', (req, res) => {
-  db.data.users.push({id: 1, name: 'Selga', state: 'OH'});
+app.post('/create', (req, res) => {
+  console.log(req.body);
+  db.data.users.push({id: uuidv4(), name: req.body.name, state: req.body.state });
   db.write();
-  res.send('added!');
+  res.send('User created!');
 });
 ```
-23. Add uuid by running `npm install uuid` and importing `import { v4 as uuidv4 } from 'uuid';`
-24. Update id in create request: `db.data.users.push({id: uuidv4(), name: 'Selga', state: 'OH'});`
-25. Restart server, demo, start server, get
-26. Add a route to DELETE (CRUD):
+10. Uh oh, but it's not working. Add `app.use(express.json())`:
 ```
-app.get('/delete/:id', (req, res) => {
-  db.data.users = db.data.users.filter((post) => post.id !== req.params.id);
+// Used to parse JSON bodies
+app.use(express.json()); 
+// Parse URL-encoded bodies using query-string library
+// app.use(express.urlencoded()); 
+// or
+// Parse URL-encoded bodies using qs library
+// app.use(express.urlencoded({ extended: true })); 
+```
+11. UPDATE:
+```
+app.put('/update/:id', (req, res) => {
+  let userToUpdate = db.data.users.find((user) => user.id === req.params.id);
+  userToUpdate.name = req.body.name;
+  userToUpdate.state = req.body.state;
   db.write();
-  res.json(`Deleted id: ${req.params.id}`);
+  res.send(`User updated: ${req.params.id} (state changed: ${req.body.state})`);
 });
 ```
-27. Restart server, demo
-28. Add a route to UPDATE (CRUD):
-```
-app.get('/update/:id/:state', (req, res) => {
-  db.data.users.find((post) => post.id === req.params.id).state = req.params.state;
-  db.write();
-  res.json(`Updated id: ${req.params.id}`);
-});
-```
-29. Restart server, demo
+12. DELETE: `app.delete('/delete/:id', (req, res) => {`
+13. Update cors, update port
+`import cors from 'cors';`
+`app.use(cors());`
+`const port = process.env.PORT || 3001;`
