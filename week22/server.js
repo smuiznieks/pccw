@@ -2,12 +2,15 @@ import express from 'express';
 import { Low, JSONFile } from 'lowdb';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import cors from 'cors';
 
 const app = express();
 // console.log(`using path: ${path.resolve()}`);
 
 // Port must be unique!
-const port = 3001;
+const port = process.env.PORT || 3001;
+
+app.use(cors());
 
 // Use JSON file for storage
 const file = path.join(path.resolve(), 'db.json');
@@ -23,32 +26,54 @@ await db.read();
 db.data = db.data || { users: [] } // for node < v15.x
 // console.log(db.data);
 
+function selgaMiddleware(req, res, next) {
+  console.log('MIDDLEWARE!');
+  next();
+}
+
+function otherMiddleware(req, res, next) {
+  console.log('Another one');
+  next();
+}
+
+app.use(selgaMiddleware);
+
+// Used to parse JSON bodies
+app.use(express.json()); 
+// Parse URL-encoded bodies using query-string library
+// app.use(express.urlencoded()); 
+// or
+// Parse URL-encoded bodies using qs library
+// app.use(express.urlencoded({ extended: true })); 
+
 // CRUD - create, read, update, delete
 // READ
-app.get('/', (req, res) => {
+app.get('/', otherMiddleware, (req, res) => {
   res.json(db.data.users);
 });
 
-// CREATE --- typically app.post
-app.get('/create', (req, res) => {
-  db.data.users.push({id: uuidv4(), name: 'Selga', state: 'OH' });
+// CREATE
+app.post('/create', (req, res) => {
+  // console.log(req.body);
+  db.data.users.push({id: uuidv4(), name: req.body.name, state: req.body.state });
   db.write();
   res.send('User created!');
 });
 
-// DELETE --- typically app.delete
-app.get('/delete/:id', (req, res) => {
+// DELETE
+app.delete('/delete/:id', (req, res) => {
   db.data.users = db.data.users.filter((user) => user.id !== req.params.id);
   db.write();
-  res.send(`User deleted: ${req.params.id}`);
+  res.status(204).send(`User deleted: ${req.params.id}`);
 });
 
-// UPDATE --- typically app.put
-app.get('/update/:id/:state', (req, res) => {
-  console.log(db.data.users.find((user) => user.id === req.params.id));
-  db.data.users.find((user) => user.id === req.params.id).state = req.params.state;
+// UPDATE
+app.put('/update/:id', (req, res) => {
+  let userToUpdate = db.data.users.find((user) => user.id === req.params.id);
+  userToUpdate.name = req.body.name;
+  userToUpdate.state = req.body.state;
   db.write();
-  res.send(`User updated: ${req.params.id} (state changed: ${req.params.state})`);
+  res.send(`User updated: ${req.params.id} (updated name: ${req.body.name} /// update state: ${req.body.state})`);
 });
 
 app.get('/test', (req, res) => {
