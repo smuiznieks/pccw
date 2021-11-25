@@ -14,11 +14,13 @@ class App extends Component {
     users: [],
   };
 
+  // TODO: Create
   async createUser() {
     await axios.get(apiUrl + '/user-create');
     this.loadUsers();
   }
 
+  // TODO: Delete
   async deleteAllUsers() {
     await axios.get(apiUrl + '/users-delete');
     this.setState({

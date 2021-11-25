@@ -16,6 +16,7 @@ app.get('/users', async (req, res) => {
   res.json(users);
 });
 
+// This should be a post request
 app.get('/user-create', async (req, res) => {
   const user = new User({
     username: faker.internet.userName(),
@@ -27,6 +28,7 @@ app.get('/user-create', async (req, res) => {
   res.send('User created \n');
 });
 
+// This should be a delete request (only delete one user?)
 app.get('/users-delete', async (req, res) => {
   await User.deleteMany({}).then(() => console.log('Users deleted'));
 
