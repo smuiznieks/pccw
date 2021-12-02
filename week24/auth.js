@@ -5,6 +5,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import bodyParser from 'body-parser';
 
+const PORT = 4000;
 const app = express();
 
 const accessTokenSecret = 'somerandomaccesstoken';
@@ -83,6 +84,6 @@ app.post('/logout', (req, res) => {
 });
 
 // Change the port to 4000!
-app.listen(4000, () => {
-    console.log('Authentication service started on port 4000');
+app.listen(PORT, () => {
+    console.log(`Authentication service started on port ${PORT}`);
 });

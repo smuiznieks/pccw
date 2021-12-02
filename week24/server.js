@@ -3,6 +3,9 @@ import { Low, JSONFile } from 'lowdb';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import cors from 'cors';
+import jwt from 'jsonwebtoken';
+
+const accessTokenSecret = 'somerandomaccesstoken';
 
 const app = express();
 // console.log(`using path: ${path.resolve()}`);
@@ -27,16 +30,37 @@ db.data = db.data || { users: [] } // for node < v15.x
 // console.log(db.data);
 
 function selgaMiddleware(req, res, next) {
-  console.log('MIDDLEWARE!');
+  // console.log('MIDDLEWARE!');
   next();
 }
 
 function otherMiddleware(req, res, next) {
-  console.log('Another one');
+  // console.log('Another one');
   next();
 }
 
-app.use(selgaMiddleware);
+// Copying this function from the starter files
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  console.log(`Headers: ${JSON.stringify(req.headers)}`);
+  console.log(`Body: ${JSON.stringify(req.body)}`);
+  if (authHeader) {
+    const token = authHeader.split(' ')[1];
+
+    jwt.verify(token, accessTokenSecret, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
+}
+
+app.use(selgaMiddleware, authenticateJWT);
 
 // Used to parse JSON bodies
 app.use(express.json()); 
@@ -62,6 +86,12 @@ app.post('/create', (req, res) => {
 
 // DELETE
 app.delete('/delete/:id', (req, res) => {
+  const { role } = req.user;
+
+  if (role != 'admin') {
+    return res.sendStatus(403);
+  }
+
   db.data.users = db.data.users.filter((user) => user.id !== req.params.id);
   db.write();
   res.status(204).send(`User deleted: ${req.params.id}`);
